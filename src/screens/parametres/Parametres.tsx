@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import React from 'react'
+import styles from "./style"
 
 const ParametresPage = () => {
   return (
@@ -11,4 +12,3 @@ const ParametresPage = () => {
 
 export default ParametresPage
 
-const styles = StyleSheet.create({})

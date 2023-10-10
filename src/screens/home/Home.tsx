@@ -14,11 +14,7 @@ import {AppNavigation} from '../../navigation/types';
 import {RootStackParamList, RootTabParamList} from '../../types/Navigation';
 import {useTheme} from '../../themes/ThemeProvider';
 import ButtonOpacity from '../../components/button/ButtonOpacity';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../../utils/Metrics';
+import styles from "./style"
 
 const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
   const {language, changeLanguage} = useTranslationContext();
@@ -65,19 +61,4 @@ const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
 
 export default HomePage;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  text: {
-    fontSize: moderateScale(16),
 
-  },
-  buttonText: {
-    fontSize: moderateScale(14),
-    opacity: 0.9,
-  },
-  buttonStyle: {
-    marginTop: horizontalScale(5),
-  },
-});
