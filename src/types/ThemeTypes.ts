@@ -1,9 +1,31 @@
 export interface Theme {
     background: string;
+    surface: string;
+    card: string;
+  
     text: string;
+    secondaryText: string;
+  
     primary: string;
-    //... autres propriétés du thème
+    secondary: string;
+  
+    error: string;
+    warning: string;
+  
+    info: string;
+    success: string;
+  
+    border: string;
+    divider: string;
+  
+    headerBackground: string;
+    headerText: string;
+  
+    tabBarBackground: string;
+    tabBarIcon: string;
+
   }
+  
   
   export interface ThemeContextProps {
     theme: Theme;

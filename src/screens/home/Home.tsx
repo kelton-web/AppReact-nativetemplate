@@ -4,6 +4,7 @@ import {
   Button,
   SafeAreaView,
   StatusBar,
+  StatusBarStyle,
   StyleSheet,
   Text,
   View,
@@ -13,32 +14,48 @@ import {AppNavigation} from '../../navigation/types';
 import {RootStackParamList, RootTabParamList} from '../../types/Navigation';
 import {useTheme} from '../../themes/ThemeProvider';
 import ButtonOpacity from '../../components/button/ButtonOpacity';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../utils/Metrics';
 
-const HomePage = ({
-  navigation,
-}: AppNavigation<RootStackParamList, 'Home'>) => {
+const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
   const {language, changeLanguage} = useTranslationContext();
   const {t} = useTranslation('home');
   const {theme, toggleTheme} = useTheme();
 
-  const isLightTheme = theme.background === '#ffffff';
-  const barStyle = isLightTheme ? 'dark-content' : 'light-content';
+  const barStyle: StatusBarStyle = theme.text === '#000000' ? 'dark-content' : 'light-content';
 
   return (
     <SafeAreaView
       style={[styles.container, {backgroundColor: theme.background}]}>
       <StatusBar barStyle={barStyle} />
 
-
       <Text style={[styles.text, {color: theme.text}]}>{t('firsth1')}</Text>
-      <Button
+      <ButtonOpacity
+        buttonStyle={styles.buttonStyle}
         title={language === 'en' ? 'Changer en Français' : 'Change to English'}
+        textStyle={styles.buttonText}
+        buttonColor={theme.text}
+        textColor={theme.background}
         onPress={() => changeLanguage(language === 'en' ? 'fr' : 'en')}
         // onPress={() => navigation.navigate("initialTabNav")}
       />
-      <ButtonOpacity text={t("firsth1")} onPress={() => navigation.navigate("initialTabNav")} />
-      <Button
+      <ButtonOpacity
+        buttonStyle={styles.buttonStyle}
+        title={t('firsth1')}
+        textStyle={styles.buttonText}
+        buttonColor={theme.error}
+        textColor={theme.background}
+        onPress={() => navigation.navigate('initialTabNav')}
+      />
+      <ButtonOpacity
+        buttonStyle={styles.buttonStyle}
         title={'change color'}
+        textStyle={styles.buttonText}
+        buttonColor={theme.info}
+        textColor={theme.background}
         // onPress={() => changeLanguage(language === 'en' ? 'fr' : 'en')}
         onPress={() => toggleTheme()}
       />
@@ -53,6 +70,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
+
+  },
+  buttonText: {
+    fontSize: moderateScale(14),
+    opacity: 0.9,
+  },
+  buttonStyle: {
+    marginTop: horizontalScale(5),
   },
 });

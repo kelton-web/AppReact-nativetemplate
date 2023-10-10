@@ -1,23 +1,26 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, TouchableOpacityProps, View, ViewStyle} from 'react-native';
 import React from 'react';
 import {useTheme} from '../../themes/ThemeProvider';
 import {useTranslation} from 'react-i18next';
 import {useTranslationContext} from '../../translation/contexts/TranslationContext';
+import { moderateScale, verticalScale } from '../../utils/Metrics';
 
-interface BtnProps {
-  text: String;
+interface BtnProps extends TouchableOpacityProps {
+  title: string;
   onPress: () => void;
+  textStyle?: StyleProp<TextStyle>;
+  buttonStyle?: StyleProp<ViewStyle>;
+  buttonColor?: string;
+  textColor?: string;
 }
 
-const ButtonOpacity = ({text, onPress}: BtnProps) => {
+const ButtonOpacity = ({ title, onPress, textStyle, buttonStyle, buttonColor, textColor }: BtnProps) => {
   const {theme, toggleTheme} = useTheme();
-  const backgroundColor = theme.background === '#000000' ? '#ffffff' : '#000000';
-  const textColor = theme.text === '#000000' ? '#ffffff' : '#000000';
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={[styles.btnStyles, { backgroundColor }]} onPress={onPress}>
-        <Text style={[styles.text, { color: textColor }]}>{text}</Text>
+    <View style={[styles.container, buttonStyle]}>
+      <TouchableOpacity style={[styles.btnStyles, { backgroundColor: buttonColor } ]} onPress={onPress}>
+        <Text style={[styles.text, textStyle, { color: textColor } ]}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -33,10 +36,11 @@ const styles = StyleSheet.create({
   },
   btnStyles: {
     width: "70%",
-    paddingVertical: 20,
-    borderRadius: 10,
+    paddingVertical: verticalScale(15),
+    borderRadius: moderateScale(10),
   },
   text: {
     textAlign: "center",
+    fontSize: moderateScale(14),
   }
 });

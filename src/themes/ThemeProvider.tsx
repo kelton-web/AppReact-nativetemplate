@@ -1,19 +1,8 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 import { Theme, ThemeContextProps } from '../types/ThemeTypes';
+import { DarkTheme } from './DarkTheme';
+import { LightTheme } from './LightTheme';
 
-const LightTheme: Theme = {
-  background: '#ffffff',
-  text: '#000000',
-  primary: '#6200ee',
-  //...
-};
-
-const DarkTheme: Theme = {
-  background: '#000000',
-  text: '#ffffff',
-  primary: '#bb86fc',
-  //...
-};
 
 export const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 

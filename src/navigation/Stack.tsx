@@ -3,18 +3,20 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NavigationTab from './TabNav';
 import {RootStackParamList} from '../types/Navigation';
-import { HomeScreen } from '../screens/exports';
+import {HomeScreen} from '../screens/exports';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function NavigationStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{headerShown: false, gestureEnabled: false}}>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{headerShown: false}}
+          //   options={{headerShown: false}}
         />
 
         <Stack.Screen
