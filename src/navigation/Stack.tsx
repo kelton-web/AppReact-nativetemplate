@@ -12,7 +12,7 @@ function NavigationStack() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
-        screenOptions={{headerShown: false, gestureEnabled: false}}>
+        screenOptions={{headerShown: false, gestureEnabled: true}}>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
