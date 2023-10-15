@@ -28,7 +28,7 @@ const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
       style={[styles.container, {backgroundColor: theme.background}]}>
       <StatusBar barStyle={barStyle} />
 
-      <Text style={[styles.text, {color: theme.text}]}>{t('firsth1')}</Text>
+      <Text style={[styles.text, { color: theme.text }]}>{t('firsth1')}</Text>
       <ButtonOpacity
         buttonStyle={styles.buttonStyle}
         title={language === 'en' ? 'Changer en Français' : 'Change to English'}
