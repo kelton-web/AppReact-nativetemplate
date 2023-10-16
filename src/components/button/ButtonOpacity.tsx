@@ -9,9 +9,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import React from 'react';
-import {useTheme} from '../../themes/ThemeProvider';
-import {useTranslation} from 'react-i18next';
-import {useTranslationContext} from '../../translation/contexts/TranslationContext';
 import {moderateScale, verticalScale} from '../../utils/Metrics';
 
 interface BtnProps extends TouchableOpacityProps {
@@ -31,8 +28,6 @@ const ButtonOpacity = ({
   buttonColor,
   textColor,
 }: BtnProps) => {
-  const {theme, toggleTheme} = useTheme();
-
   return (
     <View style={[styles.container, buttonStyle]}>
       <TouchableOpacity

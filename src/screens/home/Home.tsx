@@ -14,21 +14,44 @@ import {AppNavigation} from '../../navigation/types';
 import {RootStackParamList, RootTabParamList} from '../../types/Navigation';
 import {useTheme} from '../../themes/ThemeProvider';
 import ButtonOpacity from '../../components/button/ButtonOpacity';
-import styles from "./style"
+import styles from './style';
+import RNSearchBar from '@/components/SearchBar';
+import RNInput from '@/components/TextInput';
 
 const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
   const {language, changeLanguage} = useTranslationContext();
   const {t} = useTranslation('home');
   const {theme, toggleTheme} = useTheme();
 
-  const barStyle: StatusBarStyle = theme.text === '#000000' ? 'dark-content' : 'light-content';
+  const barStyle: StatusBarStyle =
+    theme.text === '#000000' ? 'dark-content' : 'light-content';
 
   return (
     <SafeAreaView
       style={[styles.container, {backgroundColor: theme.background}]}>
       <StatusBar barStyle={barStyle} />
 
-      <Text style={[styles.text, { color: theme.text }]}>{t('firsth1')}</Text>
+      <Text style={[styles.text, {color: theme.text}]}>{t('firsth1')}</Text>
+      <RNSearchBar />
+      <RNInput
+        type="password"
+        label="Password"
+        placeholder="Enter your password"
+        mode="flat"
+
+      />
+      <RNInput
+        type="password"
+        label="Password"
+        placeholder="Enter your password"
+        selectionColor="#666"
+        underlineColor="#ddd"
+        activeUnderlineColor="#333"
+        textColor="#333"
+        dense
+        editable
+        // et ainsi de suite...
+      />
       <ButtonOpacity
         buttonStyle={styles.buttonStyle}
         title={language === 'en' ? 'Changer en Français' : 'Change to English'}
@@ -60,5 +83,3 @@ const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
 };
 
 export default HomePage;
-
-
