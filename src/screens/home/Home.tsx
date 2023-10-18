@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Button,
@@ -15,8 +15,10 @@ import {RootStackParamList, RootTabParamList} from '../../types/Navigation';
 import {useTheme} from '../../themes/ThemeProvider';
 import ButtonOpacity from '../../components/button/ButtonOpacity';
 import styles from './style';
-import RNSearchBar from '@/components/SearchBar';
-import RNInput from '@/components/TextInput';
+import RNSearchBar from '@/components/search/SearchBar';
+import { RNTextInput } from '@/components/form/exports';
+import { useZodForm } from '@/components/form/useZodForm';
+import { LoginFormSchema } from '@/components/form/schemaZod/exports';
 
 const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
   const {language, changeLanguage} = useTranslationContext();
@@ -26,6 +28,20 @@ const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
   const barStyle: StatusBarStyle =
     theme.text === '#000000' ? 'dark-content' : 'light-content';
 
+    const { data, errors, setField, validate } = useZodForm(
+      { email: '', password: '' },
+      LoginFormSchema
+    );
+  
+    const handleSubmit = () => {
+      if (validate()) {
+        console.log('Data is valid:', data);
+  
+        // Handle valid data
+      }
+    };
+
+
   return (
     <SafeAreaView
       style={[styles.container, {backgroundColor: theme.background}]}>
@@ -33,24 +49,19 @@ const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
 
       <Text style={[styles.text, {color: theme.text}]}>{t('firsth1')}</Text>
       <RNSearchBar />
-      <RNInput
-        type="password"
-        label="Password"
-        placeholder="Enter your password"
-        mode="flat"
 
+      <RNTextInput
+        label="Email"
+        initialText={data.email}
+        onChangeText={(text) => setField('email', text)}
+        errorText={errors.email}
       />
-      <RNInput
-        type="password"
+      <RNTextInput
         label="Password"
-        placeholder="Enter your password"
-        selectionColor="#666"
-        underlineColor="#ddd"
-        activeUnderlineColor="#333"
-        textColor="#333"
-        dense
-        editable
-        // et ainsi de suite...
+        type="password"
+        initialText={data.password}
+        onChangeText={(text) => setField('password', text)}
+        errorText={errors.password}
       />
       <ButtonOpacity
         buttonStyle={styles.buttonStyle}
@@ -77,6 +88,11 @@ const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
         textColor={theme.background}
         // onPress={() => changeLanguage(language === 'en' ? 'fr' : 'en')}
         onPress={() => toggleTheme()}
+      />
+      <ButtonOpacity
+        buttonStyle={styles.buttonStyle}
+        title="Submit"
+        onPress={handleSubmit}
       />
     </SafeAreaView>
   );

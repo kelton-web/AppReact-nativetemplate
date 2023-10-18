@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Searchbar } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
-import EyeVisible from './graphics/icons/eye-visible';
-import Chat from './graphics/icons/chat';
+import EyeVisible from '../graphics/icons/eye-visible';
+import Chat from '../graphics/icons/chat';
 
 const RNSearchBar = () => {
   const [searchQuery, setSearchQuery] = React.useState('');

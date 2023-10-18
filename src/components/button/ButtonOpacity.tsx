@@ -13,7 +13,7 @@ import {moderateScale, verticalScale} from '../../utils/Metrics';
 
 interface BtnProps extends TouchableOpacityProps {
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
   textStyle?: StyleProp<TextStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
   buttonColor?: string;
