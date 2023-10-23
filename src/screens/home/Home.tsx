@@ -19,6 +19,8 @@ import RNSearchBar from '@/components/search/SearchBar';
 import { RNTextInput } from '@/components/form/exports';
 import { useZodForm } from '@/components/form/useZodForm';
 import { LoginFormSchema } from '@/components/form/schemaZod/exports';
+import { login } from '@/store/services/authService';
+import { useUserStore } from '@/store/login/authStore'
 
 const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
   const {language, changeLanguage} = useTranslationContext();
@@ -28,16 +30,35 @@ const HomePage = ({navigation}: AppNavigation<RootStackParamList, 'Home'>) => {
   const barStyle: StatusBarStyle =
     theme.text === '#000000' ? 'dark-content' : 'light-content';
 
+
+    const { setToken, setUser, logout } = useUserStore();
+
+
     const { data, errors, setField, validate } = useZodForm(
       { email: '', password: '' },
       LoginFormSchema
     );
   
-    const handleSubmit = () => {
+
+    const handleSubmit = async () => {
       if (validate()) {
         console.log('Data is valid:', data);
+        try {
+          const response = await login(data);
+            if (response && response.token) {
+            // Stockez le token JWT dans un état global (ou AsyncStorage, etc.)
+            setToken(response.token);
   
-        // Handle valid data
+            navigation.navigate('Home');
+          } else {
+            // Gérez le cas où le token n'est pas présent dans la réponse
+            console.error('No token in response');
+            // Affichez un message d'erreur à l'utilisateur
+          }
+        } catch (error) {
+          console.error('Error logging in:', (error as Error).message);
+          // Handle error, display a message to the user, etc.
+        }
       }
     };
 
